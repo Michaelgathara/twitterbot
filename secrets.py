@@ -7,5 +7,5 @@ ACCESS_TOKEN_SECRET = environ['access_token_secret']
 key = [CONSUMER_KEY,
       CONSUMER_SECRET,
       ACCESS_KEY,
-      ACCESS_SECRET
+      ACCESS_TOKEN_SECRET
 ]
