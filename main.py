@@ -35,9 +35,10 @@ def fav_retweet_user(api, user_handle):
 
 def retweet_tweets_with_hashtag(api, need_hashtags):
     if type(need_hashtags) is list:
-        search_query = f"{need_hashtags} -filter:retweets"
-        tweets = api.search(q=search_query, lang ="en", tweet_mode='extended')
+        search_query = f"{need_hashtags} - filter:retweets"
+        tweets = api.search(q=search_query, lang ="en", tweet_mode='extended', count=20, result_type="mixed")
         for tweet in tweets:
+            logger.debug(tweet)
             hashtags = [i['text'].lower() for i in tweet.__dict__['entities']['hashtags']]
             try:
                 need_hashtags = [hashtag.strip('#') for hashtag in need_hashtags]
@@ -57,31 +58,6 @@ def fav_retweet(api):
     mentions = api.mentions_timeline(tweet_mode = 'extended')
     for mention in reversed(mentions):
         if mention.in_reply_to_status_id is not None or mention.user.id == api.me().id:
-            # This tweet is a reply or I'm its author so, ignore it
-            return
-        # 
-        # if mention.in_reply_to_status_id is mention.user.id == api.me().id:
-        if not mention.favorited:
-            # Mark it as Liked, since we have not done it yet
-            try:
-                mention.favorite()
-                logger.info(f"Liked tweet by {mention.user.name}")
-            except Exception as e:
-                logger.error("Error on fav", exc_info=True)
-                
-        if not mention.retweeted:
-            # Retweet, since we have not retweeted it yet
-            try:
-                mention.retweet()
-                logger.info(f"Retweeted tweet by {mention.user.name}")
-            except Exception as e:
-                logger.error("Error on fav and retweet", exc_info=True)
-
-def all_retweet(api):
-    logger.info('Retrieving tweets...')
-    mentions = api.mentions_timeline(tweet_mode = 'extended')
-    for mention in reversed(mentions):
-        if mention.in_reply_to_status_id is mention.user.id == api.me().id:
             # This tweet is a reply or I'm its author so, ignore it
             return
         # 
@@ -124,11 +100,11 @@ def retweet_tweets_with_ticker(api, need_ticker):
 def main():
     api = create_api()
     while True:
-        fav_retweet(api)
-        all_retweet(api)
-        retweet_tweets_with_hashtag(api, ["#manim"])
-        fav_retweet_user(api, "@sybersid_18")
-        retweet_tweets_with_ticker(api, ["$tsla"])
+        # fav_retweet(api)
+        retweet_tweets_with_hashtag(api, ["#passs386","#s386","#advocateabic","#durbinliesimmigrantsdie"])
+        # fav_retweet_user(api, "@GCBCoalition")
+        # @immivoice
+        
         logger.info("Waiting...")
         time.sleep(30)
 
