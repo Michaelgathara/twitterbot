@@ -100,7 +100,7 @@ def retweet_tweets_with_ticker(api, need_ticker):
 def main():
     api = create_api()
     while True:
-        # fav_retweet(api)
+        fav_retweet(api)
         retweet_tweets_with_hashtag(api, ["#passs386","#s386","#advocateabic","#durbinliesimmigrantsdie"])
         # fav_retweet_user(api, "@GCBCoalition")
         # @immivoice
