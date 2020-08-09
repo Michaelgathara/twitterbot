@@ -101,7 +101,7 @@ def main():
     api = create_api()
     while True:
         fav_retweet(api)
-        retweet_tweets_with_hashtag(api, ["#passs386","#s386","#advocateabic","#durbinliesimmigrantsdie"])
+        retweet_tweets_with_hashtag(api, ["#passs386"])
         # fav_retweet_user(api, "@GCBCoalition")
         # @immivoice
         
