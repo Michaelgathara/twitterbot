@@ -102,7 +102,10 @@ def main():
     while True:
         fav_retweet(api)
         retweet_tweets_with_hashtag(api, ["#passs386"])
-        # fav_retweet_user(api, "@GCBCoalition")
+        retweet_tweets_with_hashtag(api, ["#greencardbacklog"])
+        retweet_tweets_with_hashtag(api, ["#S386IsFair"])
+        # #S386IsFair
+        fav_retweet_user(api, "@GCBCoalition")
         # @immivoice
         
         logger.info("Waiting...")
