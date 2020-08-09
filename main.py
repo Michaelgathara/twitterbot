@@ -8,6 +8,15 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger()
 from config import create_api
 
+def follow_followers(api):
+    logger.info("Retrieving and following followers")
+    for follower in tweepy.Cursor(api.followers).items():
+        if not follower.following:
+            try:
+                follower.follow()
+                logger.info(f"Following {follower.name}")
+            except tweepy.error.TweepError:
+                pass
 
 def fav_retweet_user(api, user_handle):
     search_query = f"{user_handle} -filter:retweets"
@@ -100,11 +109,15 @@ def retweet_tweets_with_ticker(api, need_ticker):
 def main():
     api = create_api()
     while True:
+        follow_followers(api)
         fav_retweet(api)
         retweet_tweets_with_hashtag(api, ["#passs386"])
         retweet_tweets_with_hashtag(api, ["#greencardbacklog"])
         retweet_tweets_with_hashtag(api, ["#S386IsFair"])
-        # #S386IsFair
+        retweet_tweets_with_hashtag(api, ["#UnblockS386"])
+        retweet_tweets_with_hashtag(api, ["#S386EliminatesDiscrimination"])
+        retweet_tweets_with_hashtag(api, ["#S386IsGoodForAmerica"])
+        # #S386IsFair, #UnblockS386, #S386EliminatesDiscrimination, #S386IsGoodForAmerica
         fav_retweet_user(api, "@GCBCoalition")
         # @immivoice
         
